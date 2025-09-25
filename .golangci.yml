@@ -1,0 +1,52 @@
+run:
+  timeout: 5m
+  tests: true
+  allow-parallel-runners: true
+
+linters:
+  enable:
+    - govet
+    - staticcheck
+    - ineffassign
+    - gosimple
+    - errcheck
+    - typecheck
+    - revive
+    - gocritic
+    - gofmt
+    - goimports
+    - misspell
+    - prealloc
+    - exportloopref
+    - copyloopvar
+    - contextcheck
+  disable:
+    - depguard
+    - dupl
+
+linters-settings:
+  revive:
+    rules:
+      - name: exported
+        arguments: [ "disableComment" ]
+      - name: indent-error-flow
+      - name: var-naming
+      - name: unhandled-error
+  goimports:
+    local-prefixes: github.com/you/broadcast-server
+  gocritic:
+    disabled-checks:
+      - hugeParam
+  misspell:
+    locale: US
+
+issues:
+  exclude-use-default: false
+  exclude:
+    - "error var .* should have name of the form Err.*"    # допускаем произвольные имена ошибок
+    - "should have comment or be unexported"               # ослабим для MVP
+  max-issues-per-linter: 0
+  max-same-issues: 0
+
+output:
+  sort-results: true

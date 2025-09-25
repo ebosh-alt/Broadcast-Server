@@ -1,0 +1,38 @@
+# Binaries
+/bin/
+/dist/
+/build/*.tar.gz
+*.exe
+*.dll
+*.so
+*.dylib
+
+# Go artifacts
+*.test
+coverage.out
+
+# Modules/cache
+vendor/
+*.sum
+
+# IDE/editor
+.vscode/
+.idea/
+*.iml
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs & runtime
+logs/
+*.log
+tmp/
+.cache/
+
+# Env/config
+.env
+.env.*
+secrets/
