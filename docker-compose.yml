@@ -3,22 +3,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-      target: final
-      args:
-        VERSION: ${VERSION:-dev}
-        COMMIT: ${COMMIT:-none}
-        DATE: ${DATE:-1970-01-01T00:00:00Z}
-    image: broadcast-server:${VERSION:-dev}
-    container_name: broadcast-server
-    command: ["start","--port","8080"]
-    environment:
-      LOG_LEVEL: ${LOG_LEVEL:-info}
-      MSG_MAX_BYTES: ${MSG_MAX_BYTES:-4096}
-      SEND_BUFFER: ${SEND_BUFFER:-64}
-      PING_INTERVAL: ${PING_INTERVAL:-20s}
-      AUTH_TOKEN: ${AUTH_TOKEN:-}
-      CORS_ORIGINS: ${CORS_ORIGINS:-*}
+    image: broadcast-server:dev
     ports:
       - "8080:8080"
     restart: unless-stopped
-    stop_grace_period: 10s

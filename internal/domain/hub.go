@@ -1,11 +1,9 @@
 package domain
 
-import (
-	"context"
-)
+import "context"
 
 type Client interface {
-	Send(msg []byte) bool // неблокирующая попытка отправки; false — если переполнен буфер
+	Send(msg []byte) bool
 	Close()
 }
 
@@ -33,12 +31,9 @@ func (h *Hub) Run(ctx context.Context) {
 	for {
 		select {
 		case <-ctx.Done():
-			// закрываем всех клиентов
 			for c := range h.clients {
 				c.Close()
 			}
-			return
-
 		case c := <-h.register:
 			h.clients[c] = struct{}{}
 
@@ -47,11 +42,9 @@ func (h *Hub) Run(ctx context.Context) {
 				delete(h.clients, c)
 				c.Close()
 			}
-
 		case msg := <-h.broadcast:
 			for c := range h.clients {
 				if !c.Send(msg) {
-					// медленный клиент — отключаем
 					delete(h.clients, c)
 					c.Close()
 				}
